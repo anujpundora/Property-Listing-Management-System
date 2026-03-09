@@ -11,17 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('properties', function (Blueprint $table) {
-        $table->id();
-        $table->string('title');
-        $table->text('description');
-        $table->decimal('price', 12, 2);
-        $table->string('location');
-        $table->string('type'); // apartment, villa, plot
-        $table->string('status')->default('available'); // available, sold
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->timestamps();
-    });
+      Schema::create('properties', function (Blueprint $table) {
+    $table->id();
+
+    $table->string('title');
+    $table->text('description');
+
+    $table->decimal('price', 10, 2);
+
+    $table->string('location');
+    $table->string('type');
+    $table->string('status');
+
+    $table->string('image')->nullable();   // NEW
+
+    $table->foreignId('user_id')->constrained();
+
+    $table->timestamps();
+    $table->softDeletes();   // NEW
+});
     }
 
     /**
